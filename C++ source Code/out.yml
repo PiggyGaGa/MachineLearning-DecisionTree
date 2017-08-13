@@ -1,0 +1,49 @@
+%YAML:1.0
+---
+Attribute: Outlook
+typeNum: 3
+value : sunny
+value : overcast
+value : rainy
+Attribute: Temperature
+typeNum: 12
+value : "85"
+value : "80"
+value : "83"
+value : "70"
+value : "68"
+value : "65"
+value : "64"
+value : "72"
+value : "69"
+value : "75"
+value : "81"
+value : "71"
+Attribute: Humidity
+typeNum: 10
+value : "85"
+value : "90"
+value : "86"
+value : "96"
+value : "80"
+value : "70"
+value : "65"
+value : "95"
+value : "75"
+value : "91"
+Attribute: Windy
+typeNum: 2
+value : FALSE
+value : TRUE
+Attribute: PlayGolf
+typeNum: 2
+value : no
+value : yes
+dataMat: !!opencv-matrix
+   rows: 14
+   cols: 5
+   dt: u
+   data: [ 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 2, 2, 0, 1, 2, 3, 3, 0, 1, 2,
+       4, 4, 0, 1, 2, 5, 5, 1, 0, 1, 6, 6, 1, 1, 0, 7, 7, 0, 0, 0, 8, 5,
+       0, 1, 2, 9, 4, 0, 1, 0, 9, 5, 1, 1, 1, 7, 1, 1, 1, 1, 10, 8, 0, 1,
+       2, 11, 9, 1, 0 ]
