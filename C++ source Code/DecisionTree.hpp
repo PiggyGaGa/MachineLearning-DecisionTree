@@ -1,10 +1,10 @@
 #pragma once
 #include <iostream>
-#include <fstream>  //¶ÁÈ¡ÎÄ¼şÄÚÈİ
+#include <fstream>  //è¯»å–æ–‡ä»¶å†…å®¹
 #include <map>
 #include <vector>
 #include <string>
-#include <opencv2/core.hpp> //ÓÃOpenCVµÄºËĞÄ×é¼ş£¬²»ÓÃÆäËûµÄÄ£¿é
+#include <opencv2/core.hpp> //ç”¨OpenCVçš„æ ¸å¿ƒç»„ä»¶ï¼Œä¸ç”¨å…¶ä»–çš„æ¨¡å—
 #include <cmath>
 
 using std::cout; using std::cin; using std::cerr; using std::endl;
@@ -17,21 +17,21 @@ namespace machinelearning
 	{		
 	public:
 		struct TreeNode
-		{   //½ÚµãĞÅÏ¢
-			string Attribute;   //´Ë½Úµã¶ÔÓ¦µÄÊôĞÔ
-			bool LeafNode; //Èç¹ûÊÇÒ¶×Ó½Úµã£¬´ËÖµ·´Ó³·ÖÀà½á¹û¡£ //ÆäËûÇé¿ö¶¼ÊÇ0;
-			vector<TreeNode*> children; //º¢×Ó½ÚµãµÄµØÖ·¡£
-			map<string, TreeNode*> AttributeLinkChildren;  //ÊôĞÔÖ¸Ïòº¢×Ó½Úµã£¬Ò²¾ÍÊÇ¶ÔÓ¦µÄÊ÷ĞÎ½á¹¹ÖĞµÄÊ÷Ö¦
+		{   //èŠ‚ç‚¹ä¿¡æ¯
+			string Attribute;   //æ­¤èŠ‚ç‚¹å¯¹åº”çš„å±æ€§
+			bool LeafNode; //å¦‚æœæ˜¯å¶å­èŠ‚ç‚¹ï¼Œæ­¤å€¼åæ˜ åˆ†ç±»ç»“æœã€‚ //å…¶ä»–æƒ…å†µéƒ½æ˜¯0;
+			vector<TreeNode*> children; //å­©å­èŠ‚ç‚¹çš„åœ°å€ã€‚
+			map<string, TreeNode*> AttributeLinkChildren;  //å±æ€§æŒ‡å‘å­©å­èŠ‚ç‚¹ï¼Œä¹Ÿå°±æ˜¯å¯¹åº”çš„æ ‘å½¢ç»“æ„ä¸­çš„æ ‘æ
 
 		};
 		
-		struct Attr    //Ã¿Ò»ÁĞµÄÊôĞÔ
+		struct Attr    //æ¯ä¸€åˆ—çš„å±æ€§
 		{
 			int colIndex;
 			string Attribute;
-			int typeNum;   //ÊôĞÔÈ¡ÖµµÄ¸öÊı
+			int typeNum;   //å±æ€§å–å€¼çš„ä¸ªæ•°
 			vector<string> AttributeValue;
-			map<string, unsigned char>  typeMap; //ÊôĞÔÈ¡Öµ¶ÔÓ¦µÄÕûÊıÖµ;
+			map<string, unsigned char>  typeMap; //å±æ€§å–å€¼å¯¹åº”çš„æ•´æ•°å€¼;
 		};
 	private:
 		struct MatInfo
@@ -49,13 +49,13 @@ namespace machinelearning
 		cv::Mat trainDataMat;
 		vector<vector<string>> predictedDataMat;
 		MatInfo trainMatrixInfo;
-		TreeNode *root;  //¸ù½Úµã
-		vector<Attr> vectorAttr; //´æ´¢ËùÓĞµÄ¾ØÕóĞÅÏ¢£¬µ«²»´æ´¢¾ØÕó¡£
+		TreeNode *root;  //æ ¹èŠ‚ç‚¹
+		vector<Attr> vectorAttr; //å­˜å‚¨æ‰€æœ‰çš„çŸ©é˜µä¿¡æ¯ï¼Œä½†ä¸å­˜å‚¨çŸ©é˜µã€‚
 		DecisionTree();
-		int ReadTrainDataFile(string fileAddress);  //Êı¾İÔ¤´¦Àí
-		TreeNode* BuildTree(cv::Mat &data, vector<Attr> &dataAttr, string AlgorithmName);  // Ö¸¶¨ÊÇÄÄÖÖËã·¨
+		int ReadTrainDataFile(string fileAddress);  //æ•°æ®é¢„å¤„ç†
+		TreeNode* BuildTree(cv::Mat &data, vector<Attr> &dataAttr, string AlgorithmName);  // æŒ‡å®šæ˜¯å“ªç§ç®—æ³•
 		vector<vector<string>> ReadPredictedDataFile(string fileAddreess);
-		vector<string> Predicted(TreeNode* root, vector<vector<string>> &pData);  //·µ»ØÖµÎªintÀàĞÍ±íÊ¾Êı¾İµÄ·ÖÀà¡£
+		vector<string> Predicted(TreeNode* root, vector<vector<string>> &pData);  //è¿”å›å€¼ä¸ºintç±»å‹è¡¨ç¤ºæ•°æ®çš„åˆ†ç±»ã€‚
 		
 	private:
 		int stringDataToInt(vector<vector<string>> src, cv::Mat &dataMat, vector<Attr> &headAttrInfo);
@@ -71,8 +71,8 @@ namespace machinelearning
 		int IntExistInVector(int a, vector<int> b);
 		float GetDataEntropy(cv::Mat &data);
 		float InformationGain(vector<int> value, map<int, entropyInfo> b, float dataEntropy, int rows);
-		float Entropy(vector<float> ratio); // ¼ÆËãìØ
-		//ÅĞ¶Ï¾ØÕóÖĞÊÇ·ñÓĞ¸ÃÊôĞÔ
+		float Entropy(vector<float> ratio); // è®¡ç®—ç†µ
+		//åˆ¤æ–­çŸ©é˜µä¸­æ˜¯å¦æœ‰è¯¥å±æ€§
 		bool DataExistAttribute(cv::Mat &data, vector<Attr> &properties, int maxIndex, string oneAttributeValue);
 		int IndexOFAttribute(string nodeString, vector<Attr> &vectorAttr);
 		string PredictedRecursion(TreeNode* nodeAddress, vector<string> &rowData, vector<Attr> &vecAttr);
