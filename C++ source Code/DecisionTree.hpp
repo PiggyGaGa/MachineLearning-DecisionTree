@@ -33,9 +33,9 @@ namespace machinelearning
 	}
 	int DecisionTree::ReadTrainDataFile(string fileAddress)
 	{
-		int cols = 0, rows = 0;  //Í¨¹ıÎÄ¼ş¶ÁÈ¡ »ñÈ¡ĞĞºÍÁĞµÄĞÅÏ¢¡£
+		int cols = 0, rows = 0;  //é€šè¿‡æ–‡ä»¶è¯»å– è·å–è¡Œå’Œåˆ—çš„ä¿¡æ¯ã€‚
 								 ///cv::Mat strResult;
-								 //cv::Mat result;    //·µ»ØµÄÌØÕ÷Öµ¾ØÕó¡£
+								 //cv::Mat result;    //è¿”å›çš„ç‰¹å¾å€¼çŸ©é˜µã€‚
 		vector<vector<string>> strResult;
 		vector<Attr> headAttr;
 		ifstream read;
@@ -43,7 +43,7 @@ namespace machinelearning
 
 		string headline;
 		getline(read, headline);
-		rows++;  //Ã¿´Îreadline¶¼Òª¼ÓĞĞÊıÒ»´Î
+		rows++;  //æ¯æ¬¡readlineéƒ½è¦åŠ è¡Œæ•°ä¸€æ¬¡
 		if (rows > 0)
 		{
 			string attributeName;
@@ -58,13 +58,13 @@ namespace machinelearning
 			strResult.push_back(oneLineString);
 			//cout << endl;
 		}
-		//»ñÈ¡µÚÒ»ĞĞĞÅÏ¢
-		string line;   //´ÓµÚ¶şĞĞÒÔºó¿ªÊ¼´æ´¢µÄÃ¿Ò»ĞĞµÄÊı¾İ
-					   //ÏÂÃæ»ñÈ¡ºóÃæµÄĞÅÏ¢		
+		//è·å–ç¬¬ä¸€è¡Œä¿¡æ¯
+		string line;   //ä»ç¬¬äºŒè¡Œä»¥åå¼€å§‹å­˜å‚¨çš„æ¯ä¸€è¡Œçš„æ•°æ®
+					   //ä¸‹é¢è·å–åé¢çš„ä¿¡æ¯		
 		while (getline(read, line))
 		{
 			rows++;
-			int realcols = 0;  //ÓÃÀ´ÅĞ¶Ï´ËĞĞÖĞÊı¾İÊÇ·ñºÍ±êÌâĞĞµÄÊı¾İÁĞÊıÏàÍ¬£¬ÏàÍ¬²Å´æ´¢£¬·ñÔò²»´æ´¢
+			int realcols = 0;  //ç”¨æ¥åˆ¤æ–­æ­¤è¡Œä¸­æ•°æ®æ˜¯å¦å’Œæ ‡é¢˜è¡Œçš„æ•°æ®åˆ—æ•°ç›¸åŒï¼Œç›¸åŒæ‰å­˜å‚¨ï¼Œå¦åˆ™ä¸å­˜å‚¨
 			string attributeName;
 			char delim = ',';
 			istringstream stringin(line);
@@ -76,7 +76,7 @@ namespace machinelearning
 				oneLineString.push_back(attributeName);
 			}
 			if (realcols == cols)
-			{ //Ö»ÓĞºÍ±êÌâĞĞÊı¾İÁĞÊıÏàÍ¬²Å´æ´¢
+			{ //åªæœ‰å’Œæ ‡é¢˜è¡Œæ•°æ®åˆ—æ•°ç›¸åŒæ‰å­˜å‚¨
 				strResult.push_back(oneLineString);
 			}
 		}
@@ -95,9 +95,9 @@ namespace machinelearning
 		int matCols = int(src[0].size());
 		for (int j = 0; j < matCols; j++)
 		{
-			vector<string> perColStringVector; //Ã¿Ò»ÁĞµÄz×Ö·û´®ÖÖÀà
+			vector<string> perColStringVector; //æ¯ä¸€åˆ—çš„zå­—ç¬¦ä¸²ç§ç±»
 			map<string, unsigned char> oneColMap;
-			unsigned char indexNum = 0;  //Õâ¸öÊıÓÃÀ´²úÉúÕûĞÍµÄ²ÎÊıÖµ¡£
+			unsigned char indexNum = 0;  //è¿™ä¸ªæ•°ç”¨æ¥äº§ç”Ÿæ•´å‹çš„å‚æ•°å€¼ã€‚
 			Attr perColAttr;
 			perColAttr.Attribute = src[0][j];
 			perColAttr.colIndex = j;
@@ -138,10 +138,10 @@ namespace machinelearning
 
 	DecisionTree::TreeNode* DecisionTree::AlgorithmID3(cv::Mat &data, vector<Attr> &properties)
 	{
-		//¶Ô¾ØÕó½øĞĞ¼ÆËã£¬°üÀ¨entropy,informationGain;
-		//vector<float> entropy; //ĞÅÏ¢ìØ
-		vector<float> informationGain;  //ĞÅÏ¢ÔöÒæ
-		int maxIndex;  //×î´óĞÅÏ¢ÔöÒæµÄÊôĞÔµÄË÷Òı
+		//å¯¹çŸ©é˜µè¿›è¡Œè®¡ç®—ï¼ŒåŒ…æ‹¬entropy,informationGain;
+		//vector<float> entropy; //ä¿¡æ¯ç†µ
+		vector<float> informationGain;  //ä¿¡æ¯å¢ç›Š
+		int maxIndex;  //æœ€å¤§ä¿¡æ¯å¢ç›Šçš„å±æ€§çš„ç´¢å¼•
 					   //entropy = CalculateEntropy(data);
 		//cout << "dataSize:" << data.size() << endl;
 		//cout << data << endl;
@@ -168,32 +168,32 @@ namespace machinelearning
 		}
 		else
 		{
-			//½øĞĞµİ¹é
+			//è¿›è¡Œé€’å½’
 			TreeNode* branchNode = new TreeNode;
 			branchNode->Attribute = properties[maxIndex].Attribute;
 			branchNode->LeafNode = false;
-			vector<Attr> tmpAttr = properties;   //¹¹½¨ĞÂµÄÊôĞÔÏòÁ¿£¬ÓÃÓÚÏÂ´Î
-			tmpAttr.erase(tmpAttr.begin() + maxIndex);  //É¾³ıÉÏÒ»¸ö½ÚµãµÄÊôĞÔ¡£
+			vector<Attr> tmpAttr = properties;   //æ„å»ºæ–°çš„å±æ€§å‘é‡ï¼Œç”¨äºä¸‹æ¬¡
+			tmpAttr.erase(tmpAttr.begin() + maxIndex);  //åˆ é™¤ä¸Šä¸€ä¸ªèŠ‚ç‚¹çš„å±æ€§ã€‚
 			vector<string> attributeValue = properties[maxIndex].AttributeValue;
-			//½øĞĞ·ÖÖ§
+			//è¿›è¡Œåˆ†æ”¯
 
 			for (int i = 0; i < properties[maxIndex].AttributeValue.size(); i++)
 			{
-				TreeNode* childNode = new TreeNode; //ÉùÃ÷Ò»¸öº¢×Ó½Úµã
-				string oneAttributeValue = attributeValue[i];  //Ã¿Ò»¸öÊôĞÔ¶ÔÓ¦µÄÖµ£¬×Ö·û´®¡£
+				TreeNode* childNode = new TreeNode; //å£°æ˜ä¸€ä¸ªå­©å­èŠ‚ç‚¹
+				string oneAttributeValue = attributeValue[i];  //æ¯ä¸€ä¸ªå±æ€§å¯¹åº”çš„å€¼ï¼Œå­—ç¬¦ä¸²ã€‚
 				if (DataExistAttribute(data, properties, maxIndex, oneAttributeValue))
 				{
 					cv::Mat subMat;
 					subMat = GetNewMat(data, properties, maxIndex, oneAttributeValue);
-					//ÕâÀïÔ¤ÁôÎ»ÖÃ£¬½øĞĞÔ¤¼ôÖ¦²Ù×÷£¬
-					//Ô¤¼ôÖ¦²Ù×÷
+					//è¿™é‡Œé¢„ç•™ä½ç½®ï¼Œè¿›è¡Œé¢„å‰ªææ“ä½œï¼Œ
+					//é¢„å‰ªææ“ä½œ
 
 					childNode = this->AlgorithmID3(subMat, tmpAttr);
 					branchNode->children.push_back(childNode);
 					branchNode->AttributeLinkChildren.insert(map<string, TreeNode*>::value_type(oneAttributeValue, childNode));
 				}
 			}
-			//·µ»Ø·ÖÖ§½Úµã
+			//è¿”å›åˆ†æ”¯èŠ‚ç‚¹
 			return branchNode;
 		}
 	}
@@ -205,19 +205,19 @@ namespace machinelearning
 	{
 		return nullptr;
 	}
-	vector<float> DecisionTree::CalculateInfGain(cv::Mat &data) //¼ÆËãInformationGain
+	vector<float> DecisionTree::CalculateInfGain(cv::Mat &data) //è®¡ç®—InformationGain
 	{
 
 		vector<float> result;
-		float dataEntropy; //¾ØÕóµÄìØ
+		float dataEntropy; //çŸ©é˜µçš„ç†µ
 		dataEntropy = GetDataEntropy(data);
 
 
 		//vector<int> AttrValueNum;
-		for (int i = 0; i < data.cols - 1; i++)  //Ö»¶ÔÊôĞÔÁĞ½øĞĞ¼ÆËã£¬¶Ô±êÇ©ÁĞ²»¼ÆËã£¬±êÇ©ÁĞÒÑ¾­¼ÆËã¹ıÁË¡£
+		for (int i = 0; i < data.cols - 1; i++)  //åªå¯¹å±æ€§åˆ—è¿›è¡Œè®¡ç®—ï¼Œå¯¹æ ‡ç­¾åˆ—ä¸è®¡ç®—ï¼Œæ ‡ç­¾åˆ—å·²ç»è®¡ç®—è¿‡äº†ã€‚
 		{
-			vector<int> attrValue;  //Ã¿Ò»ÁĞÊı¾İ¹«ÓĞ¼¸ÖÖÀàĞÍ´æ´¢ÔÚÕâÀï
-			map<int, entropyInfo> attrLinkToLabel;  //Ã¿ÖÖÀàĞÍ¶ÔÓ¦µÄĞÅÏ¢ìØĞÅÏ¢£¬ÓĞ¿ÉÄÜ·ÖÀàÏàÍ¬£¬ÓĞ¿ÉÄÜ·ÖÀà²»Í¬
+			vector<int> attrValue;  //æ¯ä¸€åˆ—æ•°æ®å…¬æœ‰å‡ ç§ç±»å‹å­˜å‚¨åœ¨è¿™é‡Œ
+			map<int, entropyInfo> attrLinkToLabel;  //æ¯ç§ç±»å‹å¯¹åº”çš„ä¿¡æ¯ç†µä¿¡æ¯ï¼Œæœ‰å¯èƒ½åˆ†ç±»ç›¸åŒï¼Œæœ‰å¯èƒ½åˆ†ç±»ä¸åŒ
 
 			for (int j = 0; j < data.rows; j++)
 			{
@@ -244,8 +244,8 @@ namespace machinelearning
 					attrLinkToLabel.insert(map<int, entropyInfo>::value_type(value, oneAttrEntropyInfo));
 				}
 			}
-			//¼ÆËãĞÅÏ¢ìØ
-			float informationGain;  //ĞÅÏ¢ìØ
+			//è®¡ç®—ä¿¡æ¯ç†µ
+			float informationGain;  //ä¿¡æ¯ç†µ
 			informationGain = InformationGain(attrValue, attrLinkToLabel, dataEntropy, data.rows);
 			result.push_back(informationGain);
 		}
@@ -282,19 +282,19 @@ namespace machinelearning
 	{
 		int matCols = data.cols, matRows = data.rows;
 		int dimensionOFAttr = int(properties.size());
-		cv::Mat result;   //½á¹û¾ØÕó
-		unsigned char AttrValue = properties[maxIndex].typeMap[oneAttributeValue];  //×Ö·û´®ÊôĞÔÖµÔÚ¾ØÕóÖĞ¶ÔÓ¦µÄÊıÖµ
+		cv::Mat result;   //ç»“æœçŸ©é˜µ
+		unsigned char AttrValue = properties[maxIndex].typeMap[oneAttributeValue];  //å­—ç¬¦ä¸²å±æ€§å€¼åœ¨çŸ©é˜µä¸­å¯¹åº”çš„æ•°å€¼
 		if (matCols != dimensionOFAttr || maxIndex >= matCols)
-		{   //×öÒ»¸öÊı¾İÎ¬ÊıµÄÅĞ¶Ï£¬Ôö¼Ó½¡×³ĞÔ
-			cerr << "¾ØÕóÎ¬ÊıºÍÊôĞÔÏòÁ¿Î¬Êı²»¶ÔÓ¦";
+		{   //åšä¸€ä¸ªæ•°æ®ç»´æ•°çš„åˆ¤æ–­ï¼Œå¢åŠ å¥å£®æ€§
+			cerr << "çŸ©é˜µç»´æ•°å’Œå±æ€§å‘é‡ç»´æ•°ä¸å¯¹åº”";
 			getchar();
 			exit(0);
 		}
-		//ÏÂÃæÊÇÉú³ÉĞ¡¾ØÕóµÄ¹ı³Ì¡£
+		//ä¸‹é¢æ˜¯ç”Ÿæˆå°çŸ©é˜µçš„è¿‡ç¨‹ã€‚
 		for (int i = 0; i < matRows; i++)
 		{
 			cv::Mat_<unsigned char> newRowValue;
-			if (data.at<unsigned char>(i, maxIndex) == AttrValue)  //Èç¹ûÕâÒ»ĞĞÖĞµÄÔªËØÊÇ×Ö·ûÊôĞÔ¶ÔÓ¦µÄÊıÖµÖ´ĞĞÏÂÃæ²Ù×÷¡£
+			if (data.at<unsigned char>(i, maxIndex) == AttrValue)  //å¦‚æœè¿™ä¸€è¡Œä¸­çš„å…ƒç´ æ˜¯å­—ç¬¦å±æ€§å¯¹åº”çš„æ•°å€¼æ‰§è¡Œä¸‹é¢æ“ä½œã€‚
 			{
 				for (int j = 0; j < matCols; j++)
 				{
@@ -303,16 +303,16 @@ namespace machinelearning
 						newRowValue.push_back(data.at<unsigned char>(i, j));
 					}
 				}
-				//Ñ¹ÈëÊı¾İ
+				//å‹å…¥æ•°æ®
 				newRowValue = newRowValue.t();
 				//cout << newRowValue << endl;
 				if (newRowValue.cols == matCols - 1)
-				{  //°´ĞĞÑ¹Èë
+				{  //æŒ‰è¡Œå‹å…¥
 					result.push_back(newRowValue);
 				}
 				else
 				{
-					cerr << "ÔÚÉú³ÉĞ¡¾ØÕóÊ±£¬ÏòÁ¿Î¬ÊıºÍ¾ØÕóÎ¬Êı²»Ò»ÖÂ";
+					cerr << "åœ¨ç”Ÿæˆå°çŸ©é˜µæ—¶ï¼Œå‘é‡ç»´æ•°å’ŒçŸ©é˜µç»´æ•°ä¸ä¸€è‡´";
 				}
 			}
 		}
@@ -320,7 +320,7 @@ namespace machinelearning
 	}
 
 	int DecisionTree::IntExistInVector(int a, vector<int> b)
-	{ //Èç¹ûÔÚÀïÃæÔò·µ»Ø¶ÔÓ¦µÄË÷Òı£¬·ñÔò·µ»Ø-1
+	{ //å¦‚æœåœ¨é‡Œé¢åˆ™è¿”å›å¯¹åº”çš„ç´¢å¼•ï¼Œå¦åˆ™è¿”å›-1
 		for (int i = 0; i < b.size(); i++)
 		{
 			if (a == b[i])
@@ -404,7 +404,7 @@ namespace machinelearning
 	}
 
 	vector<vector<string>> DecisionTree::ReadPredictedDataFile(string fileAddress)
-	{   //¶ÁÈ¡´øÔ¤²âÊı¾İ
+	{   //è¯»å–å¸¦é¢„æµ‹æ•°æ®
 		ifstream read;
 		read.open(fileAddress, ios::in);
 		vector<vector<string>> predictedStringData;
@@ -421,12 +421,12 @@ namespace machinelearning
 			}
 			if (oneRowString.size() == this->trainMatrixInfo.cols - 1)
 			{
-				//Ö»´æ´¢ºÍÑµÁ·Êı¾İ¼¯Æ¥ÅäµÄÊı¾İ
+				//åªå­˜å‚¨å’Œè®­ç»ƒæ•°æ®é›†åŒ¹é…çš„æ•°æ®
 				predictedStringData.push_back(oneRowString);
 			}
 			else
 			{
-				cerr << "´ıÔ¤²âÊı¾İºÍÑµÁ·Êı¾İ¼¯Î¬Êı²»Ò»ÖÂ" << endl;
+				cerr << "å¾…é¢„æµ‹æ•°æ®å’Œè®­ç»ƒæ•°æ®é›†ç»´æ•°ä¸ä¸€è‡´" << endl;
 				getchar();
 				getchar();
 				exit(0);
@@ -452,7 +452,7 @@ namespace machinelearning
 	}
 	string DecisionTree::PredictedRecursion(TreeNode* nodeAddress, vector<string> &rowData, vector<Attr> &vecAttr)
 	{
-		//Ô¤²âµÄµİ¹éº¯Êı
+		//é¢„æµ‹çš„é€’å½’å‡½æ•°
 		if (nodeAddress->LeafNode)
 		{
 			return nodeAddress->Attribute;
@@ -495,12 +495,12 @@ namespace machinelearning
 				return tmp;
 			}
 		}
-		cout << "²éÕÒ³ö´íÁË" << endl;
+		cout << "æŸ¥æ‰¾å‡ºé”™äº†" << endl;
 		return nullptr;
 	}
 	string DecisionTree::MostInMatLabel(cv::Mat &data, vector<Attr> &properties)
 	{
-		class vecInf   //½¨Á¢Ö»Ö»Õë¶Ô´Ëº¯ÊıµÄÄÚ²¿Àà£¬ÔÚÀïÃæÊµÏÖ²éÕÒµÄ¹¦ÄÜ¡£
+		class vecInf   //å»ºç«‹åªåªé’ˆå¯¹æ­¤å‡½æ•°çš„å†…éƒ¨ç±»ï¼Œåœ¨é‡Œé¢å®ç°æŸ¥æ‰¾çš„åŠŸèƒ½ã€‚
 		{
 		public:
 			static struct data
