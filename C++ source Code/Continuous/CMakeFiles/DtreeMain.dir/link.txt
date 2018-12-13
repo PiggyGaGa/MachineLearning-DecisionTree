@@ -1,0 +1,1 @@
+/usr/bin/c++    -std=c++11  -O0 -Wall -g2 -ggdb   CMakeFiles/DtreeMain.dir/main.o CMakeFiles/DtreeMain.dir/CDTree.o  -o DtreeMain -rdynamic 
