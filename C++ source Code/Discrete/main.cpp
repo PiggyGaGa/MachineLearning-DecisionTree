@@ -1,10 +1,10 @@
 #include <iostream>
-#include "DTree2.hpp"
+#include "DTree.hpp"
 using std::cout; using std::cin;
 int main()
 {
 
-/*
+
 	string fileAddress("./tianqi.csv");
 	//cout << "请输入文件的地址：";
 	//cin >> fileAddress;
@@ -23,7 +23,4 @@ vector<string> result;
 		cout << result[i] << endl;
 	} 
 	return 0;
-*/
-	DTree myDecisionTree(4, 5, 0.01);
-	myDecisionTree.buildTree();
 }
