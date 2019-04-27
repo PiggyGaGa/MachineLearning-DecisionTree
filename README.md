@@ -105,3 +105,5 @@ vector<vector<string>> ReadPredictedDataFile(string fileAddreess);
 
 **～DecisionTree()**
  ～DecisionTree() 为构析函数
+
+[连续型的决策树](./Continuous_DecisionTree/Readme.md)
